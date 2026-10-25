@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* ---------- Design tokens ---------- */
+@theme {
+  --color-paper: #f1f2ef;        /* page background, cool uncoated stock */
+  --color-table: #e4e7e2;        /* light table behind the proof */
+  --color-sheet: #ffffff;        /* the printed sheet */
+  --color-ink: #1b1e22;          /* graphite ink, primary text + buttons */
+  --color-ink-soft: #3a3f45;     /* body copy */
+  --color-muted: #6a7077;        /* secondary text */
+  --color-rule: #d9dcd7;         /* hairlines */
+  --color-rule-strong: #b9beb8;  /* input borders */
+  --color-reg: #d3245f;          /* registration magenta, accent + errors */
+  --color-ok: #1f7a4d;
+
+  --animate-sheet-in: sheet-in 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 300ms ease-out both;
+
+  @keyframes sheet-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) rotate(-0.35deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-reg) 18%, transparent);
+    color: var(--color-ink);
+  }
+}
+
+/* Paper-like shadow for sheets: a contact line plus a soft lift */
+@utility shadow-sheet {
+  box-shadow:
+    0 1px 0 rgb(27 30 34 / 0.05),
+    0 1px 2px rgb(27 30 34 / 0.06),
+    0 18px 40px -22px rgb(27 30 34 / 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
